@@ -3,8 +3,8 @@ import "../App.css";
 
 const DisplayTable = ({ data, repositories }) => {
   return (
-    <table className="bg-white dark:bg-slate-800 w-full">
-      <thead className="bg-gray-100 border-b-6 border-gray-200">
+    <table className="border-collapse border w-full">
+      <thead className=" bg-gray-300 dark:bg-slate-600 border-b-6 border-gray-400">
         <tr>
           <th className="text-md px-6 py-3">Username</th>
           <th className="text-md px-6 py-3">Avatar</th>
@@ -13,12 +13,14 @@ const DisplayTable = ({ data, repositories }) => {
           <th className="text-md px-6 py-3">(Top 4) Repositories</th>
         </tr>
       </thead>
-      <tbody className="text-center text-cyan-900">
+      <tbody className="text-center text-cyan-500">
         <tr className="border-b-6 border-gray-200">
-          <td className="text-sky-500 text-md px-6 py-3">
-            <a href={data.html_url}>{data.login}</a>
+          <td className="border-collapse border text-sky-500 text-md px-6 py-3">
+            <a href={data.html_url} className="header">
+              {data.login}
+            </a>
           </td>
-          <td className=" text-md px-6 py-3">
+          <td className="border-collapse border text-md px-6 py-3">
             {!data.avatar_url ? (
               " "
             ) : (
@@ -29,13 +31,17 @@ const DisplayTable = ({ data, repositories }) => {
               />
             )}
           </td>
-          <td className="text-md px-6 py-3">{data.followers}</td>
-          <td className="text-md px-6 py-3">{data.public_repos}</td>
-          <td>
+          <td className="border-collapse border text-md px-6 py-3">
+            {data.followers}
+          </td>
+          <td className="border-collapse border text-md px-6 py-3">
+            {data.public_repos}
+          </td>
+          <td className="border-collapse border px-6 py-3">
             {repositories.map((repo) => (
               <div className="ui relaxed divided list" key={repo.name}>
                 <div className="item">
-                  <i className="large github middle aligned icon"></i>
+                  <i className="px-2 large github middle aligned icon"></i>
                   <div className="content">
                     <a href={repo.html_url} className="header" target="_blank">
                       {repo.name}

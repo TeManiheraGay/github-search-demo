@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
-  );
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   const handleToggle = (e) => {
     if (e.target.checked) {

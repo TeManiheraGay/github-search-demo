@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from "./github-logo.jpg";
 import "./App.css";
 import Profile from "./components/Profile";
 import Navbar from "./components/Navbar";
 import { createContext } from "react";
-import DisplayTable from "./components/DisplayTable";
 
 export const ThemeContext = createContext(null);
 
 function App() {
   return (
-    <div className="App">
+    <div className="h-screen w-full bg-white dark:bg-slate-800">
       <Navbar />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <header className="bg-white dark:bg-slate-800">
+        {/* <img src={logo} className="object-fill h-48 w-96" alt="logo" /> */}
       </header>
       <Profile />
     </div>

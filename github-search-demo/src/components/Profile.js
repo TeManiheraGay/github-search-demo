@@ -14,40 +14,45 @@ const Profile = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
+    setRepositories([]);
+    try {
+      const profile = await fetch(`https://api.github.com/users/${username}`);
 
-    const profile = await fetch(
-      `https://api.github.com/users/${username}`
-    ).catch((err) => {
-      console.log(err.message);
-    });
-    const profileJson = await profile.json();
-    console.log(profileJson);
+      if (profile.status === 404) {
+        throw new Error("Username not found");
+      }
 
-    const repositories = await fetch(profileJson.repos_url);
-    const repoJson = await repositories.json();
-    const sortedRepoJson = repoJson
-      .sort(
-        (b, a) =>
-          a.forks_count +
-          a.stargazers_count -
-          (b.forks_count + b.stargazers_count)
-      )
-      .slice(0, 4);
-    //console.log(sortedRepoJson);
+      const profileJson = await profile.json();
 
-    if (profileJson) {
-      setData(profileJson);
-      setRepositories(sortedRepoJson);
+      const repositories = await fetch(profileJson.repos_url);
+      const repoJson = await repositories.json();
+      const sortedRepoJson = repoJson
+        .sort(
+          (b, a) =>
+            a.forks_count +
+            a.stargazers_count -
+            (b.forks_count + b.stargazers_count)
+        )
+        .slice(0, 4);
+
+      if (profileJson) {
+        setData(profileJson);
+        setRepositories(sortedRepoJson);
+      }
+    } catch (err) {
+      console.error(err);
+      setErrorMessage(err.message);
     }
   };
 
   return (
     <>
       <div className="bg-white dark:bg-slate-800" style={{ padding: 20 }}>
-        <div className="flex" style={{ paddingBottom: 20 }}>
-          <div>
+        <div className="flex py-4 px-2">
+          <div className="px-2">
             <input
-              className="px-3 py-2 font-semibold placeholder-gray-500 text-sky-500 rounded-2xl border-none ring-2 ring-gray-300"
+              className="px-3 py-2 font-semibold placeholder-gray-500 text-sky-500 rounded-2xl border-none ring-2"
               type="text"
               placeholder="search username here..."
               value={username}
@@ -63,8 +68,10 @@ const Profile = () => {
             <i className="github icon"></i>
             Search
           </button>
-          <i className="fas fa-toggle-on"></i>
         </div>
+        {errorMessage && (
+          <div className="px-6 py-2 text-red-500">{errorMessage}</div>
+        )}
         <DisplayTable data={data} repositories={repositories} />
       </div>
     </>
