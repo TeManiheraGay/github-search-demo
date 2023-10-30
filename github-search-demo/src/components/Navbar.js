@@ -17,6 +17,13 @@ const Navbar = () => {
     localStorage.setItem("theme", theme);
     const localTheme = localStorage.getItem("theme");
     document.querySelector("html").setAttribute("data-theme", localTheme);
+    if (theme === "light") {
+      document.querySelector("html").classList.remove("dark");
+      document.querySelector("html").classList.add("light");
+    } else {
+      document.querySelector("html").classList.remove("light");
+      document.querySelector("html").classList.add("dark");
+    }
   }, [theme]);
 
   return (

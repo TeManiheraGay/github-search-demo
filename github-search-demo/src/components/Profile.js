@@ -45,9 +45,9 @@ const Profile = () => {
     <>
       <div className="bg-white dark:bg-slate-800" style={{ padding: 20 }}>
         <div className="flex" style={{ paddingBottom: 20 }}>
-          <div className="flex w-96 rounded bg-white">
+          <div>
             <input
-              className="px-3 py-2 font-semibold placeholder-gray-500 text-sky-500 rounded-2xl border-none ring-2 ring-gray-300 focus:ring-2"
+              className="px-3 py-2 font-semibold placeholder-gray-500 text-sky-500 rounded-2xl border-none ring-2 ring-gray-300"
               type="text"
               placeholder="search username here..."
               value={username}
